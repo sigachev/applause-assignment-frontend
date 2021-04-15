@@ -1,0 +1,130 @@
+<h4 class="font-weight-bold py-3 mb-4">Search Bugs</h4>
+<p>This page is an example of basic search functionality.</p>
+<p>
+</p>
+
+<div class="card mb-4">
+  <h6 class="card-header">
+    Search Bugs
+  </h6>
+  <div class="card-body">
+    <form novalidate name="searchForm" class="ng-untouched ng-pristine ng-valid">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label class="form-label">Countries</label>
+          <ng-select #countriesSelect name="countriesSelect"
+                     [items]="countries"
+                     [multiple]="true"
+                     [closeOnSelect]="false"
+                     placeholder="Select testers"
+                     [(ngModel)]="selectedCountries"
+                     [hideSelected]="true">
+          </ng-select>
+          <button class="btn btn-primary btn-sm mt-3" (click)="selectAllCountries()">Select All</button>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="form-label">Devices</label>
+          <ng-select #devicesSelect name="devicesSelect"
+                     [items]="devices"
+                     bindLabel="description"
+                     bindValue="id"
+                     [multiple]="true"
+                     [closeOnSelect]="false"
+                     placeholder="Select devices"
+                     [(ngModel)]="selectedDevices"
+                     [hideSelected]="true">
+          </ng-select>
+          <button class="btn btn-primary btn-sm mt-3 " (click)="selectAllDevices()">Select All</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <hr>
+      </div>
+      <button type="submit" class="btn btn-primary"
+              [disabled]="(selectedCountries.length == 0) || (selectedDevices.length === 0)" (click)="search()">Search
+      </button>
+    </form>
+
+  </div>
+</div>
+
+
+<div *ngIf="searchResults" class="card mb-4">
+  <h6 class="card-header">
+    Search Results
+  </h6>
+  <div class="card-body demo-vertical-spacing">
+
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Tester id</th>
+        <th>Experience (total bugs filed)</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Device</th>
+        <th>Number of Bugs</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let result of searchResults">
+        <tr>
+          <td>{{result.tester.id}}</td>
+          <td>{{result.totalBugs}}</td>
+          <td>{{result.tester.firstName}} {{result.tester.lastName}}</td>
+          <td>{{result.tester.country}}</td>
+        </tr>
+        <tr *ngFor="let deviceResult of result.devicesSearchResults">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{deviceResult.device.description}}</td>
+          <td>{{deviceResult.numberOfBugs}}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+<!--
+<div *ngIf="searchResults" class="card mb-4">
+  <h6 class="card-header">
+    Search Results
+  </h6>
+  <div class="card-body demo-vertical-spacing">
+
+    <table name="resultsTable" class="table table-hover table-striped">
+      <thead>
+      <tr>
+        <th>Tester id</th>
+        <th>Experience (total bugs filed)</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Device</th>
+        <th>Number of Bugs</th>
+      </tr>
+      </thead>
+      <tbody>
+
+
+      <ng-container *ngFor="let result of searchResults">
+        <tr *ngFor="let deviceResult of result.devicesSearchResults">
+          <td>{{result.tester.id}}</td>
+          <td>{{result.totalBugs}}</td>
+          <td>{{result.tester.firstName}} {{result.tester.lastName}}</td>
+          <td>{{result.tester.country}}</td>
+          <td>{{deviceResult.device.description}}</td>
+          <td>{{deviceResult.numberOfBugs}}</td>
+        </tr>
+      </ng-container>
+
+      </tbody>
+    </table>
+
+
+-->

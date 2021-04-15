@@ -1,0 +1,28 @@
+<h4 class="font-weight-bold py-3 mb-4">Devices</h4>
+<!--<p>List of available devices</p>-->
+
+
+<div class="card mb-4">
+  <h6 class="card-header">
+    List of existing devices
+  </h6>
+  <div class="card-body demo-vertical-spacing">
+    <table name="resultsTable" class="table">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+
+
+      <tr *ngFor="let device of devices">
+        <th>{{device.id}}</th>
+        <td>{{device.description}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
